@@ -12,14 +12,38 @@ public class TemperatureConverter {
 
     public Double returnTemp(Double temperature, String from, String to) {
         if(from == "Fahrenheit") {
-            if(to == "Fahrenheit") return temperature;
-            else if(to == "Celsius"){
-                temp = (temperature - 32) * (5 / 9);
-            }
-            else if(to == "Kelvin") {
-                temp = (temperature-32)*(5/9)+273.15;
-            }
+            if (temperature >= minFahrenheit) {
+                if (to == "Fahrenheit") return temperature;
+                else if (to == "Celsius") {
+                    temp = (temperature - 32) * (5.0 / 9);
+                } else if (to == "Kelvin") {
+                    temp = (temperature - 32) * (5.0 / 9) + 273.15;
+                }
+            } else temp = -1000.0;
         }
+
+        if(from == "Celsius") {
+            if (temperature >= minCelsius) {
+                if (to == "Celsius") return temperature;
+                else if (to == "Fahrenheit") {
+                    temp = temperature * (9.0 / 5) + 32;
+                } else if (to == "Kelvin") {
+                    temp = temperature + 273.15;
+                }
+            } else temp = -1000.0;
+        }
+
+        if(from == "Kelvin") {
+            if(temperature >= minKelvin) {
+                if (to == "Kelvin") return temperature;
+                else if (to == "Celsius") {
+                    temp = temperature - 273.15;
+                } else if (to == "Fahrenheit") {
+                    temp = (temperature - 273.15) * (9.0 / 5) + 32;
+                }
+            } else temp = -1000.0;
+        }
+
         return temp;
     }
 

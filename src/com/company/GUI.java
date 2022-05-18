@@ -143,8 +143,9 @@ public class GUI{
                     JOptionPane.showMessageDialog(frame, "Wprowadź liczbę!", "Warning", JOptionPane.WARNING_MESSAGE);
                 } else {
                     TemperatureConverter temperature = new TemperatureConverter();
-                    //temperature.returnTemp(Double.parseDouble(tempNum), fromTempCB.getItemAt(fromTempCB.getSelectedIndex()).toString(), toTempCB.getItemAt(toTempCB.getSelectedIndex()).toString());
-                    tempResult.setText("Result: " + temperature.returnTemp(Double.parseDouble(tempNum), fromTempCB.getItemAt(fromTempCB.getSelectedIndex()).toString(), toTempCB.getItemAt(toTempCB.getSelectedIndex()).toString()));
+                    double tempVar = temperature.returnTemp(Double.parseDouble(tempNum), fromTempCB.getItemAt(fromTempCB.getSelectedIndex()).toString(), toTempCB.getItemAt(toTempCB.getSelectedIndex()).toString());
+                    if(tempVar == -1000.0) JOptionPane.showMessageDialog(frame, "Podana wartość jest zbyt niska!", "Warning", JOptionPane.WARNING_MESSAGE);
+                    else tempResult.setText("Result: " + tempVar);
                 }
             }
         });
