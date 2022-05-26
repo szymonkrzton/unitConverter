@@ -3,7 +3,7 @@ package com.company;
 public class SpeedConverter {
     public SpeedConverter(){}
 
-    double temp;
+    Double temp;
 
     public Double returnSpeed(Double speed, String from, String to){
         if(from == "MPH") {

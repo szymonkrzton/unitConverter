@@ -5,7 +5,7 @@ import javax.swing.*;
 public class TemperatureConverter {
     public TemperatureConverter(){}
 
-    double temp;
+    Double temp;
 
     public Double returnTemp(Double temperature, String from, String to) {
         if(from == "Fahrenheit") {

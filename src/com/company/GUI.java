@@ -187,60 +187,32 @@ public class GUI{
         lengthNumber = new JTextField();
         lengthNumber.setBounds(50, 50, 150, 20);
 
+        String lengths[] = {"Miles", "Yards", "Feet", "Inches", "Kilometers", "Meters", "Centimeters"};
+        JComboBox fromLengthCB = new JComboBox(lengths);
+        JComboBox toLengthCB = new JComboBox(lengths);
+
         lengthButton = new JButton("Calculate");
-//        lengthButton.addActionListener(this);
+        lengthButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String lengthNum = lengthNumber.getText();
+                if(!isNumeric(lengthNum)) {
+                    JOptionPane.showMessageDialog(frame, "Wprowadź liczbę!", "Warning", JOptionPane.WARNING_MESSAGE);
+                } else if(Double.parseDouble(lengthNum) < 0) {
+                    JOptionPane.showMessageDialog(frame, "Długość nie może być ujemna!", "Warning", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    LengthConverter length = new LengthConverter();
+                    lengthResult.setText("Result: " + length.returnLength(Double.parseDouble(lengthNum), fromLengthCB.getItemAt(fromLengthCB.getSelectedIndex()).toString(), toLengthCB.getItemAt(toLengthCB.getSelectedIndex()).toString()));
+                }
+            }
+        });
 
         lengthResult = new JLabel("Result: ");
 
-        fromFeet = new JRadioButton("Feet");
-        fromInches = new JRadioButton("Inch");
-        fromYards = new JRadioButton("Yard");
-        fromMiles = new JRadioButton("Mile");
-        fromMeters = new JRadioButton("Meter");
-        fromCm = new JRadioButton("Centimeter");
-        fromKm = new JRadioButton("Kilometer");
-        toFeet = new JRadioButton("Feet");
-        toInches = new JRadioButton("Inch");
-        toYards = new JRadioButton("Yard");
-        toMiles = new JRadioButton("Mile");
-        toMeters = new JRadioButton("Meter");
-        toCm = new JRadioButton("Centimeter");
-        toKm = new JRadioButton("Kilometer");
-
-        fromLength = new ButtonGroup();
-        fromLength.add(fromFeet);
-        fromLength.add(fromInches);
-        fromLength.add(fromYards);
-        fromLength.add(fromMiles);
-        fromLength.add(fromMeters);
-        fromLength.add(fromCm);
-        fromLength.add(fromKm);
-
-        toLength = new ButtonGroup();
-        toLength.add(toFeet);
-        toLength.add(toInches);
-        toLength.add(toYards);
-        toLength.add(toMiles);
-        toLength.add(toMeters);
-        toLength.add(toCm);
-        toLength.add(toKm);
 
         lengthPanel.add(fromLengthLabel);
         lengthPanel.add(toLengthLabel);
-        lengthPanel.add(fromFeet);
-        lengthPanel.add(toFeet);
-        lengthPanel.add(fromInches);
-        lengthPanel.add(toInches);
-        lengthPanel.add(fromYards);
-        lengthPanel.add(toYards);
-        lengthPanel.add(fromMiles);
-        lengthPanel.add(toMiles);
-        lengthPanel.add(fromMeters);
-        lengthPanel.add(toMeters);
-        lengthPanel.add(fromCm);
-        lengthPanel.add(toCm);
-        lengthPanel.add(fromKm);
-        lengthPanel.add(toKm);
+        lengthPanel.add(fromLengthCB);
+        lengthPanel.add(toLengthCB);
         lengthPanel.add(lengthNumber);
         lengthPanel.add(lengthButton);
         lengthPanel.add(lengthResult);
