@@ -5,57 +5,51 @@ import javax.swing.*;
 public class TemperatureConverter {
     public TemperatureConverter(){}
 
-    double minFahrenheit = -459.67;
-    double minCelsius = -273.15;
-    double minKelvin = 0;
     double temp;
 
     public Double returnTemp(Double temperature, String from, String to) {
         if(from == "Fahrenheit") {
             if(to == "Fahrenheit") return temperature;
-            else if(to == "Celsius"){
-                temp = (temperature - 32) * (5 / 9);
-            }
-            else if(to == "Kelvin") {
-                temp = (temperature-32)*(5/9)+273.15;
-            }
+            else if(to == "Celsius") temp = FtoC(temperature);
+            else if(to == "Kelvin") temp = FtoK(temperature);
         }
+
+        if(from == "Celsius") {
+            if(to == "Celsius") return temperature;
+            else if(to == "Fahrenheit") temp = CtoF(temperature);
+            else if(to == "Kelvin") temp = CtoK(temperature);
+        }
+
+        if(from == "Kelvin") {
+            if(to == "Kelvin") return temperature;
+            else if(to == "Celsius") temp = KtoC(temperature);
+            else if(to == "Fahrenheit") temp = KtoF(temperature);
+        }
+
         return temp;
     }
 
-    public double FtoC(String temperature) {
-            double temp = Double.parseDouble(temperature);
-            double C = (temp - 32) * (5 / 9);
-            return C;
+    public Double FtoC(Double temperature) {
+        return (temperature - 32) * (5.0 / 9);
     }
 
-    public double CtoF(String temperature) {
-        double temp = Double.parseDouble(temperature);
-        double F = temp*(9/5)+32;
-        return F;
+    public Double CtoF(Double temperature) {
+        return temperature*(9.0 / 5)+32;
     }
 
-    public double CtoK(String temperature) {
-        double temp = Double.parseDouble(temperature);
-        double K = temp + 273.15;
-        return K;
+    public Double CtoK(Double temperature) {
+        return temperature + 273.15;
     }
 
-    public double KtoC(String temperature) {
-        double temp = Double.parseDouble(temperature);
-        double C = temp - 273.15;
-        return C;
+    public Double KtoC(Double temperature) {
+        return temperature - 273.15;
     }
 
-    public double FtoK(String temperature) {
-        double temp = Double.parseDouble(temperature);
-        double K = (temp-32)*(5/9)+273.15;
-        return K;
+    public Double FtoK(Double temperature) {
+        return (temperature-32)*(5.0 / 9)+273.15;
     }
 
-    public double KtoF(String temperature) {
-        double temp = Double.parseDouble(temperature);
-        double F = (temp-273.15)*(9/5)+32;
-        return F;
+    public Double KtoF(Double temperature) {
+        return (temperature-273.15)*(9.0 / 5)+32;
     }
 }
