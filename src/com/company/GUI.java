@@ -52,7 +52,15 @@ public class GUI{
     //RADIO BUTTONS
 
     //temp bttns
+    JRadioButton fromFahrenheit;
+    JRadioButton fromCelsius;
+    JRadioButton fromKelvin;
+    JRadioButton toFahrenheit;
+    JRadioButton toCelsius;
+    JRadioButton toKelvin;
 
+    ButtonGroup fromTemp;
+    ButtonGroup toTemp;
 
     //speed bttns
     JRadioButton fromMph;
@@ -123,7 +131,7 @@ public class GUI{
         tempNumber.setBounds(50, 50, 90, 20);
 
         String temperatures[] = {"Fahrenheit", "Celsius", "Kelvin"};
-        JComboBox fromTempCB = new JComboBox(temperatures);
+        final JComboBox fromTempCB = new JComboBox(temperatures);
         JComboBox toTempCB = new JComboBox(temperatures);
 
 
@@ -133,10 +141,9 @@ public class GUI{
                 String tempNum = tempNumber.getText();
                 if(!isNumeric(tempNum)) {
                     JOptionPane.showMessageDialog(frame, "Wprowadź liczbę!", "Warning", JOptionPane.WARNING_MESSAGE);
-                } else if(Double.parseDouble(tempNum) < minCelsius || Double.parseDouble(tempNum) < minFahrenheit || Double.parseDouble(tempNum) < minKelvin){
-                    JOptionPane.showMessageDialog(frame, "Podana temperatura jest poniżej najniższej możliwej!", "Warning", JOptionPane.WARNING_MESSAGE);
                 } else {
                     TemperatureConverter temperature = new TemperatureConverter();
+                    //temperature.returnTemp(Double.parseDouble(tempNum), fromTempCB.getItemAt(fromTempCB.getSelectedIndex()).toString(), toTempCB.getItemAt(toTempCB.getSelectedIndex()).toString());
                     tempResult.setText("Result: " + temperature.returnTemp(Double.parseDouble(tempNum), fromTempCB.getItemAt(fromTempCB.getSelectedIndex()).toString(), toTempCB.getItemAt(toTempCB.getSelectedIndex()).toString()));
                 }
             }
@@ -149,11 +156,33 @@ public class GUI{
         fromTempCB.setBounds(50,50, 90, 20);
         toTempCB.setBounds(50,50,90,20);
 
+//        fromFahrenheit = new JRadioButton("Fahrenheit");
+//        fromCelsius = new JRadioButton("Celsius");
+//        fromKelvin = new JRadioButton("Kelvin");
+//        toFahrenheit = new JRadioButton("Fahrenheit");
+//        toCelsius = new JRadioButton("Celsius");
+//        toKelvin = new JRadioButton("Kelvin");
+//
+//        fromTemp = new ButtonGroup();
+//        fromTemp.add(fromFahrenheit);
+//        fromTemp.add(fromCelsius);
+//        fromTemp.add(fromKelvin);
+//
+//        toTemp = new ButtonGroup();
+//        toTemp.add(toFahrenheit);
+//        toTemp.add(toCelsius);
+//        toTemp.add(toKelvin);
 
         tempPanel.add(fromTempLabel);
         tempPanel.add(toTempLabel);
         tempPanel.add(fromTempCB);
         tempPanel.add(toTempCB);
+//        tempPanel.add(fromFahrenheit);
+//        tempPanel.add(toFahrenheit);
+//        tempPanel.add(fromCelsius);
+//        tempPanel.add(toCelsius);
+//        tempPanel.add(fromKelvin);
+//        tempPanel.add(toKelvin);
         tempPanel.add(tempNumber);
         tempPanel.add(tempButton);
         tempPanel.add(tempResult);
@@ -171,63 +200,42 @@ public class GUI{
         speedNumber = new JTextField();
         speedNumber.setBounds(50, 50, 150, 20);
 
-        String speeds[] = {"MPH", "KPH", "Knot", "Mach"};
-        JComboBox fromSpeedCB = new JComboBox(speeds);
-        JComboBox toSpeedCB = new JComboBox(speeds);
-
         speedButton = new JButton("Calculate");
-        speedButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String speedNum = speedNumber.getText();
-                if(!isNumeric(speedNum)) {
-                    JOptionPane.showMessageDialog(frame, "Wprowadź liczbę!", "Warning", JOptionPane.WARNING_MESSAGE);
-                } else if(Double.parseDouble(speedNum) < 0){
-                    JOptionPane.showMessageDialog(frame, "Podana temperatura jest poniżej najniższej możliwej!", "Warning", JOptionPane.WARNING_MESSAGE);
-                } else {
-                    SpeedConverter speed = new SpeedConverter();
-                    speedResult.setText("Result: " + speed.returnSpeed(Double.parseDouble(speedNum), fromSpeedCB.getItemAt(fromSpeedCB.getSelectedIndex()).toString(), toSpeedCB.getItemAt(toSpeedCB.getSelectedIndex()).toString()));
-                }
-            }
-        });
+//        speedButton.addActionListener(this);
 
         speedResult = new JLabel("Result: ");
 
-        fromSpeedCB.setBounds(50,50, 90, 20);
-        toSpeedCB.setBounds(50,50,90,20);
+        fromMph = new JRadioButton("MPH");
+        fromKph = new JRadioButton("KPH");
+        fromKnots = new JRadioButton("Knot");
+        fromMach = new JRadioButton("Mach");
+        toMph = new JRadioButton("MPH");
+        toKph = new JRadioButton("KPH");
+        toKnots = new JRadioButton("Knot");
+        toMach = new JRadioButton("Mach");
 
-//        fromMph = new JRadioButton("MPH");
-//        fromKph = new JRadioButton("KPH");
-//        fromKnots = new JRadioButton("Knot");
-//        fromMach = new JRadioButton("Mach");
-//        toMph = new JRadioButton("MPH");
-//        toKph = new JRadioButton("KPH");
-//        toKnots = new JRadioButton("Knot");
-//        toMach = new JRadioButton("Mach");
+        fromSpeed = new ButtonGroup();
+        fromSpeed.add(fromMph);
+        fromSpeed.add(fromKph);
+        fromSpeed.add(fromKnots);
+        fromSpeed.add(fromMach);
 
-//        fromSpeed = new ButtonGroup();
-//        fromSpeed.add(fromMph);
-//        fromSpeed.add(fromKph);
-//        fromSpeed.add(fromKnots);
-//        fromSpeed.add(fromMach);
-//
-//        toSpeed = new ButtonGroup();
-//        toSpeed.add(toMph);
-//        toSpeed.add(toKph);
-//        toSpeed.add(toKnots);
-//        toSpeed.add(toMach);
+        toSpeed = new ButtonGroup();
+        toSpeed.add(toMph);
+        toSpeed.add(toKph);
+        toSpeed.add(toKnots);
+        toSpeed.add(toMach);
 
         speedPanel.add(fromSpeedLabel);
         speedPanel.add(toSpeedLabel);
-        speedPanel.add(fromSpeedCB);
-        speedPanel.add(toSpeedCB);
-//        speedPanel.add(fromMph);
-//        speedPanel.add(toMph);
-//        speedPanel.add(fromKph);
-//        speedPanel.add(toKph);
-//        speedPanel.add(fromKnots);
-//        speedPanel.add(toKnots);
-//        speedPanel.add(fromMach);
-//        speedPanel.add(toMach);
+        speedPanel.add(fromMph);
+        speedPanel.add(toMph);
+        speedPanel.add(fromKph);
+        speedPanel.add(toKph);
+        speedPanel.add(fromKnots);
+        speedPanel.add(toKnots);
+        speedPanel.add(fromMach);
+        speedPanel.add(toMach);
         speedPanel.add(speedNumber);
         speedPanel.add(speedButton);
         speedPanel.add(speedResult);
