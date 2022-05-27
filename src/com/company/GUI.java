@@ -1,12 +1,9 @@
 package com.company;
 
 import javax.swing.*;
-import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 
 
 public class GUI{
@@ -49,24 +46,6 @@ public class GUI{
     JButton lengthButton;
     JButton weightButton;
 
-    //RADIO BUTTONS
-
-    //weight bttns
-    JRadioButton fromPounds;
-    JRadioButton fromOunces;
-    JRadioButton fromStones;
-    JRadioButton fromKilograms;
-    JRadioButton fromGrams;
-    JRadioButton toPounds;
-    JRadioButton toOunces;
-    JRadioButton toStones;
-    JRadioButton toKilograms;
-    JRadioButton toGrams;
-
-    ButtonGroup fromWeight;
-    ButtonGroup toWeight;
-
-
     public GUI(){
         frame = new JFrame();
 
@@ -90,9 +69,11 @@ public class GUI{
         tempButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String tempNum = tempNumber.getText();
+                String fromTemp = fromTempCB.getItemAt(fromTempCB.getSelectedIndex()).toString();
+                String toTemp = toTempCB.getItemAt(toTempCB.getSelectedIndex()).toString();
                 if(!isNumeric(tempNum)) {
                     JOptionPane.showMessageDialog(frame, "Wprowadź liczbę!", "Warning", JOptionPane.WARNING_MESSAGE);
-                } else if(Double.parseDouble(tempNum) < minKelvin || Double.parseDouble(tempNum) < minFahrenheit || Double.parseDouble(tempNum) < minCelsius) {
+                } else if((fromTemp == "Kelvin" && Double.parseDouble(tempNum) < minKelvin) || (fromTemp == "Fahrenheit" && Double.parseDouble(tempNum) < minFahrenheit) || (fromTemp == "Celsius" && Double.parseDouble(tempNum) < minCelsius)) {
                     JOptionPane.showMessageDialog(frame, "Podana temperatura jest niższa od najniższej możliwej!", "Warning", JOptionPane.WARNING_MESSAGE);
                 } else {
                     TemperatureConverter temperature = new TemperatureConverter();
@@ -189,7 +170,6 @@ public class GUI{
 
         lengthResult = new JLabel("Result: ");
 
-
         lengthPanel.add(fromLengthLabel);
         lengthPanel.add(toLengthLabel);
         lengthPanel.add(fromLengthCB);
@@ -255,7 +235,7 @@ public class GUI{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Unit Converter");
         frame.pack();
-        frame.setSize(400,500);
+        frame.setSize(800,600);
         frame.setVisible(true);
 
     }
