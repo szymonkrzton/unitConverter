@@ -8,21 +8,20 @@ public class TemperatureConverter {
     Double temp;
 
     public Double returnTemp(Double temperature, String from, String to) {
+        if(from == to) return temperature;
+
         if(from == "Fahrenheit") {
-            if(to == "Fahrenheit") return temperature;
-            else if(to == "Celsius") temp = FtoC(temperature);
+            if(to == "Celsius") temp = FtoC(temperature);
             else if(to == "Kelvin") temp = FtoK(temperature);
         }
 
         if(from == "Celsius") {
-            if(to == "Celsius") return temperature;
-            else if(to == "Fahrenheit") temp = CtoF(temperature);
+            if(to == "Fahrenheit") temp = CtoF(temperature);
             else if(to == "Kelvin") temp = CtoK(temperature);
         }
 
         if(from == "Kelvin") {
-            if(to == "Kelvin") return temperature;
-            else if(to == "Celsius") temp = KtoC(temperature);
+            if(to == "Celsius") temp = KtoC(temperature);
             else if(to == "Fahrenheit") temp = KtoF(temperature);
         }
 

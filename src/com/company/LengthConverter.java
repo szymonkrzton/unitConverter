@@ -6,9 +6,10 @@ public class LengthConverter {
     Double temp;
 
     public Double returnLength(Double length, String from, String to) {
+        if(from == to) return length;
+
         if(from == "Miles") {
-            if(to == "Miles") return length;
-            else if(to == "Yards") temp = MILEtoYARD(length);
+            if(to == "Yards") temp = MILEtoYARD(length);
             else if(to == "Feet") temp = MILEtoFOOT(length);
             else if(to == "Inches") temp = MILEtoINCH(length);
             else if(to == "Kilometers") temp = MILEtoKM(length);
@@ -17,8 +18,7 @@ public class LengthConverter {
         }
 
         if(from == "Yards") {
-            if(to == "Yards") return length;
-            else if(to == "Miles") temp = YARDtoMILE(length);
+            if(to == "Miles") temp = YARDtoMILE(length);
             else if(to == "Feet") temp = YARDtoFOOT(length);
             else if(to == "Inches") temp = YARDtoINCH(length);
             else if(to == "Kilometers") temp = YARDtoKM(length);
@@ -27,8 +27,7 @@ public class LengthConverter {
         }
 
         if(from == "Feet") {
-            if(to == "Feet") return length;
-            else if(to == "Yards") temp = FOOTtoYARD(length);
+            if(to == "Yards") temp = FOOTtoYARD(length);
             else if(to == "Miles") temp = FOOTtoMILE(length);
             else if(to == "Inches") temp = FOOTtoINCH(length);
             else if(to == "Kilometers") temp = FOOTtoKM(length);
@@ -37,8 +36,7 @@ public class LengthConverter {
         }
 
         if(from == "Inches") {
-            if(to == "Inches") return length;
-            else if(to == "Yards") temp = INCHtoYARD(length);
+            if(to == "Yards") temp = INCHtoYARD(length);
             else if(to == "Feet") temp = INCHtoFOOT(length);
             else if(to == "Miles") temp = INCHtoMILE(length);
             else if(to == "Kilometers") temp = INCHtoKM(length);
@@ -47,8 +45,7 @@ public class LengthConverter {
         }
 
         if(from == "Kilometers") {
-            if(to == "Kilometers") return length;
-            else if(to == "Yards") temp = KMtoYARD(length);
+            if(to == "Yards") temp = KMtoYARD(length);
             else if(to == "Feet") temp = KMtoFOOT(length);
             else if(to == "Inches") temp = KMtoINCH(length);
             else if(to == "Miles") temp = KMtoMILE(length);
@@ -57,8 +54,7 @@ public class LengthConverter {
         }
 
         if(from == "Meters") {
-            if(to == "Meters") return length;
-            else if(to == "Yards") temp = METERtoYARD(length);
+            if(to == "Yards") temp = METERtoYARD(length);
             else if(to == "Feet") temp = METERtoFOOT(length);
             else if(to == "Inches") temp = METERtoINCH(length);
             else if(to == "Kilometers") temp = METERtoKM(length);
@@ -67,8 +63,7 @@ public class LengthConverter {
         }
 
         if(from == "Centimeters") {
-            if(to == "Centimeters") return length;
-            else if(to == "Yards") temp = CMtoYARD(length);
+            if(to == "Yards") temp = CMtoYARD(length);
             else if(to == "Feet") temp = CMtoFOOT(length);
             else if(to == "Inches") temp = CMtoINCH(length);
             else if(to == "Kilometers") temp = CMtoKM(length);

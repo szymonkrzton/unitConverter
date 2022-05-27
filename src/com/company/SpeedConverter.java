@@ -6,30 +6,28 @@ public class SpeedConverter {
     Double temp;
 
     public Double returnSpeed(Double speed, String from, String to){
+        if(from == to) return speed;
+
         if(from == "MPH") {
-            if(to == "MPH") return speed;
-            else if(to == "KPH") temp = MPHtoKPH(speed);
+            if(to == "KPH") temp = MPHtoKPH(speed);
             else if(to == "Knot") temp = MPHtoKNOTS(speed);
             else if(to == "Mach") temp = MPHtoMACH(speed);
         }
 
         if(from == "KPH") {
-            if(to == "KPH") return speed;
-            else if(to == "MPH") temp = KPHtoMPH(speed);
+            if(to == "MPH") temp = KPHtoMPH(speed);
             else if(to == "Knot") temp = KPHtoKNOTS(speed);
             else if(to == "Mach") temp = KPHtoMACH(speed);
         }
 
         if(from == "Knot") {
-            if(to == "Knot") return speed;
-            else if(to == "MPH") temp = KNOTStoMPH(speed);
+            if(to == "MPH") temp = KNOTStoMPH(speed);
             else if(to == "KPH") temp = KNOTStoKPH(speed);
             else if(to == "Mach") temp = KNOTStoMACH(speed);
         }
 
         if(from == "Mach") {
-            if(to == "Mach") return speed;
-            else if(to == "MPH") temp = MACHtoMPH(speed);
+            if(to == "MPH") temp = MACHtoMPH(speed);
             else if(to == "KPH") temp = MACHtoKPH(speed);
             else if(to == "Knot") temp = MACHtoKNOTS(speed);
         }

@@ -51,25 +51,6 @@ public class GUI{
 
     //RADIO BUTTONS
 
-    //length bttns
-    JRadioButton fromFeet;
-    JRadioButton fromInches;
-    JRadioButton fromYards;
-    JRadioButton fromMiles;
-    JRadioButton fromMeters;
-    JRadioButton fromCm;
-    JRadioButton fromKm;
-    JRadioButton toFeet;
-    JRadioButton toInches;
-    JRadioButton toYards;
-    JRadioButton toMiles;
-    JRadioButton toMeters;
-    JRadioButton toCm;
-    JRadioButton toKm;
-
-    ButtonGroup fromLength;
-    ButtonGroup toLength;
-
     //weight bttns
     JRadioButton fromPounds;
     JRadioButton fromOunces;
@@ -229,48 +210,32 @@ public class GUI{
         weightNumber = new JTextField();
         weightNumber.setBounds(50, 50, 150, 20);
 
+        String weights[] = {"Pound", "Ounce", "Stone", "Kilogram", "Gram"};
+        JComboBox fromWeightCB = new JComboBox(weights);
+        JComboBox toWeightCB = new JComboBox(weights);
+
         weightButton = new JButton("Calculate");
-//        weightButton.addActionListener(this);
+        weightButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String weightNum = weightNumber.getText();
+                if(!isNumeric(weightNum)) {
+                    JOptionPane.showMessageDialog(frame, "Wprowadź liczbę!", "Warning", JOptionPane.WARNING_MESSAGE);
+                } else if(Double.parseDouble(weightNum) < 0) {
+                    JOptionPane.showMessageDialog(frame, "Waga nie może być ujemna!", "Warning", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    WeightConverter weight = new WeightConverter();
+                    weightResult.setText("Result: " + weight.returnWeight(Double.parseDouble(weightNum), fromWeightCB.getItemAt(fromWeightCB.getSelectedIndex()).toString(), toWeightCB.getItemAt(toWeightCB.getSelectedIndex()).toString()));
+                }
+            }
+        });
+
 
         weightResult = new JLabel("Result: ");
 
-        fromPounds = new JRadioButton("Pound");
-        fromOunces = new JRadioButton("Ounce");
-        fromStones = new JRadioButton("Stone");
-        fromKilograms = new JRadioButton("Kilogram");
-        fromGrams = new JRadioButton("Gram");
-        toPounds = new JRadioButton("Pound");
-        toOunces = new JRadioButton("Ounce");
-        toStones = new JRadioButton("Stone");
-        toKilograms = new JRadioButton("Kilogram");
-        toGrams = new JRadioButton("Gram");
-
-        fromWeight = new ButtonGroup();
-        fromWeight.add(fromPounds);
-        fromWeight.add(fromOunces);
-        fromWeight.add(fromStones);
-        fromWeight.add(fromKilograms);
-        fromWeight.add(fromGrams);
-
-        toWeight = new ButtonGroup();
-        toWeight.add(toPounds);
-        toWeight.add(toOunces);
-        toWeight.add(toStones);
-        toWeight.add(toKilograms);
-        toWeight.add(toGrams);
-
         weightPanel.add(fromWeightLabel);
         weightPanel.add(toWeightLabel);
-        weightPanel.add(fromPounds);
-        weightPanel.add(toPounds);
-        weightPanel.add(fromOunces);
-        weightPanel.add(toOunces);
-        weightPanel.add(fromStones);
-        weightPanel.add(toStones);
-        weightPanel.add(fromKilograms);
-        weightPanel.add(toKilograms);
-        weightPanel.add(fromGrams);
-        weightPanel.add(toGrams);
+        weightPanel.add(fromWeightCB);
+        weightPanel.add(toWeightCB);
         weightPanel.add(weightNumber);
         weightPanel.add(weightButton);
         weightPanel.add(weightResult);
@@ -299,173 +264,5 @@ public class GUI{
         new GUI();
 
     }
-
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-////        if (e.getSource() == tempButton){
-//////            String tempNum = tempNumber.getText();
-////            Double tempNum = (Double) tempNumber.getValue();
-////            TemperatureConverter temperature = new TemperatureConverter();
-////            if(tempNum == null || tempNum.isEmpty()){
-////                JOptionPane.showMessageDialog(frame, "Nie wprowadzono żadnej liczby!", "Warning", JOptionPane.WARNING_MESSAGE);
-////                }
-//////            else if(!isNumeric(tempNum)){
-//////                JOptionPane.showMessageDialog(frame, "Proszę wprowadzić właściwą liczbę!", "Warning", JOptionPane.WARNING_MESSAGE);
-//////                }
-////            else if(fromFahrenheit.isSelected()){
-////                if(Double.parseDouble(tempNum) < minFahrenheit) {
-////                    JOptionPane.showMessageDialog(frame, "Podana temperatura jest poniżej najmniejszej możliwej temperatury!", "Warning", JOptionPane.WARNING_MESSAGE);
-////                } else if(toFahrenheit.isSelected()){
-////                    tempResult.setText("Result: " + tempNum);
-////                } else if(toCelsius.isSelected()){
-////                    tempResult.setText("Result: " + temperature.FtoC(tempNum));
-////                } else if(toKelvin.isSelected()){
-////                    tempResult.setText("Result: " + temperature.FtoK(tempNum));
-////                }
-////            }
-////            else if(fromCelsius.isSelected()){
-////                if(Double.parseDouble(tempNum) < minCelsius){
-////                    JOptionPane.showMessageDialog(frame, "Podana temperatura jest poniżej najmniejszej możliwej temperatury!", "Warning", JOptionPane.WARNING_MESSAGE);
-////                } else if(toCelsius.isSelected()){
-////                    tempResult.setText("Result: " + tempNum);
-////                } else if(toFahrenheit.isSelected()) {
-////                    tempResult.setText("Result: " + temperature.CtoF(tempNum));
-////                } else if(toKelvin.isSelected()) {
-////                    tempResult.setText("Result: " + temperature.CtoK(tempNum));
-////                }
-////            }
-////            else if(fromKelvin.isSelected()) {
-////                if(Double.parseDouble(tempNum) < minKelvin){
-////                    JOptionPane.showMessageDialog(frame, "Podana temperatura jest poniżej najmniejszej możliwej temperatury!", "Warning", JOptionPane.WARNING_MESSAGE);
-////                } else if(toKelvin.isSelected()) {
-////                    tempResult.setText("Result: " + tempNum);
-////                } else if(toCelsius.isSelected()){
-////                    tempResult.setText("Result: " + temperature.KtoC(tempNum));
-////                } else if(toFahrenheit.isSelected()) {
-////                    tempResult.setText("Result: " + temperature.KtoF(tempNum));
-////                }
-////            }
-////        }
-//
-//        if(e.getSource() == tempButton){
-//            String tempNum = tempNumber.getText();
-//            if(!isNumeric(tempNum)) {
-//                JOptionPane.showMessageDialog(frame, "Wprowadź liczbę!", "Warning", JOptionPane.WARNING_MESSAGE);
-//            } else {
-//                TemperatureConverter temperature = new TemperatureConverter();
-//                //temperature.returnTemp(Double.parseDouble(tempNum), fromTempCB.getItemAt(fromTempCB.getSelectedIndex()).toString(), toTempCB.getItemAt(toTempCB.getSelectedIndex()).toString());
-//                tempResult.setText("Result: " + temperature.returnTemp(Double.parseDouble(tempNum), fromTempCB.getItemAt(fromTempCB.getSelectedIndex()).toString(), toTempCB.getItemAt(toTempCB.getSelectedIndex()).toString()));
-//            }
-//        }
-//
-//
-//
-//
-//
-//
-//
-//        else if(e.getSource() == speedButton){
-//            System.out.println("Hello speed");
-//        } else if(e.getSource() == lengthButton){
-//            System.out.println("Hello length");
-//        } else if(e.getSource() == weightButton){
-//            System.out.println("Hello weight");
-//        }
-////        String num = number.getText();
-////        if(num == null || num.isEmpty()){
-////            JOptionPane.showMessageDialog(frame, "Nie wprowadzono żadnej liczby!", "Warning", JOptionPane.WARNING_MESSAGE);
-////        }
-////        else if(!isNumeric(num)){
-////            JOptionPane.showMessageDialog(frame, "Proszę wprowadzić właściwą liczbę!", "Warning", JOptionPane.WARNING_MESSAGE);
-////        }
-////        else if(Integer.parseInt(num) < 0){
-////            JOptionPane.showMessageDialog(frame, "Tylko liczby dodatnie!", "Warning", JOptionPane.WARNING_MESSAGE);
-////        }
-////        else if(fromDecimal.isSelected()){
-////            if(toDecimal.isSelected()){
-////                label.setText("Result: " + num);
-////            }
-////            else if(toBinary.isSelected()){
-////                int x = Integer.parseInt(num);
-////                label.setText("Result: " + dectobin.toBinary(x));
-////            }
-////            else if(toOctal.isSelected()){
-////                int x = Integer.parseInt(num);
-////                label.setText("Result: " + dectooct.toOctal(x));
-////            }
-////            else if(toHex.isSelected()){
-////                int x = Integer.parseInt(num);
-////                label.setText("Result: " + dectohex.toHex(x));
-////            }
-////            else{
-////                JOptionPane.showMessageDialog(frame, "Nie wybrano systemu docelowego!", "Warning", JOptionPane.WARNING_MESSAGE);
-////            }
-////        }
-////        else if(fromBinary.isSelected()){
-////            if(toBinary.isSelected()){
-////                label.setText("Result: " + num);
-////            }
-////            else if(toDecimal.isSelected()){
-////                int x = Integer.parseInt(num);
-////                label.setText("Result: " + bintodec.toDecimal(x));
-////            }
-////            else if(toOctal.isSelected()){
-////                int x = Integer.parseInt(num);
-////                label.setText("Result: " + bintooct.toOctal(x));
-////            }
-////            else if(toHex.isSelected()){
-////                int x = Integer.parseInt(num);
-////                label.setText("Result: " + bintohex.toHex(x));
-////            }
-////            else{
-////                JOptionPane.showMessageDialog(frame, "Nie wybrano systemu docelowego!", "Warning", JOptionPane.WARNING_MESSAGE);
-////            }
-////        }
-////        else if(fromOctal.isSelected()){
-////            if(toOctal.isSelected()){
-////                label.setText("Result: " + num);
-////            }
-////            else if(toDecimal.isSelected()){
-////                int x = Integer.parseInt(num);
-////                label.setText("Result: " + octtodec.toDecimal(x));
-////            }
-////            else if(toBinary.isSelected()){
-////                int x = Integer.parseInt(num);
-////                label.setText("Result: " + octtobin.toBinary(x));
-////            }
-////            else if(toHex.isSelected()){
-////                int x = Integer.parseInt(num);
-////                label.setText("Result: " + octtohex.toHex(x));
-////            }
-////            else{
-////                JOptionPane.showMessageDialog(frame, "Nie wybrano systemu docelowego!", "Warning", JOptionPane.WARNING_MESSAGE);
-////            }
-////        }
-////        else if(fromHex.isSelected()){
-////            if(toHex.isSelected()){
-////                label.setText("Result: " + num);
-////            }
-////            else if(toDecimal.isSelected()){
-////                int x = Integer.parseInt(num);
-////                label.setText("Result: " + hextodec.toDecimal(x));
-////            }
-////            else if(toBinary.isSelected()){
-////                int x = Integer.parseInt(num);
-////                label.setText("Result: " + hextobin.toBinary(x));
-////            }
-////            else if(toOctal.isSelected()){
-////                int x = Integer.parseInt(num);
-////                label.setText("Result: " + hextooct.toOctal(x));
-////            }
-////            else{
-////                JOptionPane.showMessageDialog(frame, "Nie wybrano systemu docelowego!", "Warning", JOptionPane.WARNING_MESSAGE);
-////            }
-////        }
-////        else{
-////            JOptionPane.showMessageDialog(frame, "Nie wybrano systemu z którego chcesz przeliczać!", "Warning", JOptionPane.WARNING_MESSAGE);
-////        }
-//    }
-
-
 }
 
